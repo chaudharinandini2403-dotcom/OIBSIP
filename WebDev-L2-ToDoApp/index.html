@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="A beautiful, interactive to-do list application to manage your daily tasks with ease." />
+  <title>Taskflow — Your Daily To-Do List</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+
+  <div class="bg-orb bg-orb--1" aria-hidden="true"></div>
+  <div class="bg-orb bg-orb--2" aria-hidden="true"></div>
+  <div class="bg-orb bg-orb--3" aria-hidden="true"></div>
+
+  <div class="app-container">
+
+
+    <header class="app-header">
+      <div class="app-header__logo">
+        <svg class="app-header__icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="32" height="32" rx="8" fill="url(#logo-grad)" />
+          <path d="M10 16.5L14 20.5L22 12.5" stroke="#fff" stroke-width="2.5" stroke-linecap="round"
+            stroke-linejoin="round" />
+          <defs>
+            <linearGradient id="logo-grad" x1="0" y1="0" x2="32" y2="32">
+              <stop stop-color="#7c3aed" />
+              <stop offset="1" stop-color="#06b6d4" />
+            </linearGradient>
+          </defs>
+        </svg>
+        <h1>Taskflow</h1>
+      </div>
+      <p class="app-header__tagline">Organise your day, one task at a time.</p>
+      <div class="app-header__date" id="current-date"></div>
+    </header>
+
+
+    <section class="add-task" aria-label="Add a new task">
+      <div class="add-task__input-wrapper">
+        <input type="text" id="task-input" class="add-task__input" placeholder="What do you need to do today?"
+          maxlength="200" autocomplete="off" />
+        <span class="add-task__char-count" id="char-count">0 / 200</span>
+      </div>
+      <button id="add-task-btn" class="add-task__btn" aria-label="Add Task">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <path d="M10 4V16M4 10H16" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+        </svg>
+        <span>Add Task</span>
+      </button>
+    </section>
+
+
+    <div class="stats-bar">
+      <div class="stats-bar__item stats-bar__item--pending">
+        <span class="stats-bar__dot stats-bar__dot--pending"></span>
+        <span id="pending-count">0</span> pending
+      </div>
+      <div class="stats-bar__separator"></div>
+      <div class="stats-bar__item stats-bar__item--completed">
+        <span class="stats-bar__dot stats-bar__dot--completed"></span>
+        <span id="completed-count">0</span> completed
+      </div>
+    </div>
+    <main class="task-lists">
+
+  
+      <section class="task-section" aria-label="Pending tasks">
+        <div class="task-section__header">
+          <h2 class="task-section__title">
+            <svg class="task-section__icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="1.5" />
+              <path d="M10 6V10L13 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+            </svg>
+            Pending Tasks
+          </h2>
+        </div>
+        <ul id="pending-list" class="task-list"></ul>
+        <div id="pending-empty" class="empty-state">
+          <svg class="empty-state__icon" width="64" height="64" viewBox="0 0 64 64" fill="none">
+            <circle cx="32" cy="32" r="28" stroke="currentColor" stroke-width="1.5" opacity="0.3" />
+            <path d="M24 32H40M32 24V40" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+              opacity="0.4" />
+          </svg>
+          <p class="empty-state__text">No pending tasks</p>
+          <p class="empty-state__subtext">Add a task above to get started!</p>
+        </div>
+      </section>
+
+
+      <section class="task-section" aria-label="Completed tasks">
+        <div class="task-section__header">
+          <h2 class="task-section__title task-section__title--completed">
+            <svg class="task-section__icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="1.5" />
+              <path d="M7 10L9.5 12.5L13.5 7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg>
+            Completed Tasks
+          </h2>
+          <button id="clear-completed-btn" class="task-section__clear-btn" aria-label="Clear all completed tasks"
+            title="Clear all completed tasks">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M4 4L12 12M12 4L4 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+            </svg>
+            Clear All
+          </button>
+        </div>
+        <ul id="completed-list" class="task-list"></ul>
+        <div id="completed-empty" class="empty-state">
+          <svg class="empty-state__icon" width="64" height="64" viewBox="0 0 64 64" fill="none">
+            <circle cx="32" cy="32" r="28" stroke="currentColor" stroke-width="1.5" opacity="0.3" />
+            <path d="M22 32L29 39L42 25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+              stroke-linejoin="round" opacity="0.4" />
+          </svg>
+          <p class="empty-state__text">No completed tasks yet</p>
+          <p class="empty-state__subtext">Complete a task to see it here.</p>
+        </div>
+      </section>
+
+    </main>
+
+
+    <footer class="app-footer">
+      <p>Built with ♥ — Nayana ♥ &copy; <span id="footer-year"></span></p>
+    </footer>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+
+</html>
